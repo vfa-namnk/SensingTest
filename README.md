@@ -79,7 +79,7 @@ mBaaSのコントロールパネルからアプリケーションキーとクラ
         acceData.set("accelerometer", acce)  //[x, y, z]
                 .save();
 
-#### * 【ＧＰＳセンサーの値を保存する】*
+#### *【ＧＰＳセンサーの値を保存する】*
 #### (3) -2データストアに保存用クラスを作成
 
         var GpsData = ncmb.DataStore("GpsData");
