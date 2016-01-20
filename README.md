@@ -1,9 +1,9 @@
 # 【IoT入門】スマホで加速度センサーと位置情報を取得してクラウドに保存しよう！！
-![概要図1](readme-img/top.PNG)
+![概要図1](readme-img/top.JPG)
 ### ★加速度センサー
-![概要図2](readme-img/acce.PNG)
+![概要図2](readme-img/acce.png)
 ### ★ＧＰＳセンサー
-![概要図3](readme-img/gps.PNG)
+![概要図3](readme-img/gps.png)
 
 
 ## 概要
