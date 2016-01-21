@@ -31,7 +31,7 @@
 ## 作成手順
 準備が整ったら、Monacaでプロジェクトを編集していきます。
 
-### ・Cordvaプラグインを有効化する [実装済み]
+### ・Cordvaプラグインを有効化する [設定済み]
 * DeviceMotion : 加速度センサーを利用するためのプラグイン
 * Geolocation : GPSセンサーを利用するためのプラグイン
 * Splashscreen : スプラッシュスクリーンを利用するためのプラグイン
@@ -54,7 +54,7 @@ mBaaSのコントロールパネルからアプリケーションキーとクラ
         ncmb = new NCMB(YOUR_APP_KEY,YOUR_CLIENT_KEY);
 
 #### *Startボタン押下時の処理*
-#### (3) 加速度センサーから値（x, y, z 軸方向に動く値）を取得する
+#### (3) 加速度センサーから値（x, y, z 軸）を取得する
         var watchId = navigator.accelerometer.watchAcceleration(onAcceSuccess, onAcceError, acceOptions);
 
 #### (4) GPSセンサーから値（緯度経度）を取得する
