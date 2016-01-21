@@ -1,4 +1,4 @@
-# 【IoT入門】スマホで加速度センサーと位置情報を取得してクラウドに保存しよう！！
+# 【IoT入門】スマホで加速度と位置情報を取得してクラウドに保存しよう！！
 ![概要図1](readme-img/top.JPG)
 ### ★加速度センサー
 ![概要図2](readme-img/acce.png)
@@ -31,7 +31,7 @@
 ## 作成手順
 準備が整ったら、Monacaでプロジェクトを編集していきます。
 
-### ・Cordvaプラグインを有効化する
+### ・Cordvaプラグインを有効化する [実装済み]
 * DeviceMotion : 加速度センサーを利用するためのプラグイン
 * Geolocation : GPSセンサーを利用するためのプラグイン
 * Splashscreen : スプラッシュスクリーンを利用するためのプラグイン
@@ -42,19 +42,7 @@
 
 ---------------------------------------
 ### ・js/app.js の編集
-### ①加速度センサーとGPSセンサーにアクセスして値を取得する
-・[1]～[2]の実装をしてください。
-
-#### [1] 加速度センサーから値（x, y, z 軸方向に動く値）を取得する
-        var watchId = navigator.accelerometer.watchAcceleration(onAcceSuccess, onAcceError, acceOptions);
-
-#### [2] GPSセンサーから値（緯度経度）を取得する
-        navigator.geolocation.getCurrentPosition(onGeoSuccess, onGeoError, geoOption);
-        
----------------------------------------
-### ②取得したデータをmBaaSに保存する
-・ (1)～(6)の実装をしてください。
-
+★(1)～(11)に次のコードを書いてください。
 #### (1) APIキーの設定
 mBaaSのコントロールパネルからアプリケーションキーとクライアントキーをコピーして貼り付けてください。
 
@@ -65,38 +53,45 @@ mBaaSのコントロールパネルからアプリケーションキーとクラ
 
         ncmb = new NCMB(YOUR_APP_KEY,YOUR_CLIENT_KEY);
 
-#### *【加速度センサーの値を保存する】*
-#### (3) -1 データストアに保存用クラスを作成
+#### *Startボタン押下時の処理*
+#### (3) 加速度センサーから値（x, y, z 軸方向に動く値）を取得する
+        var watchId = navigator.accelerometer.watchAcceleration(onAcceSuccess, onAcceError, acceOptions);
+
+#### (4) GPSセンサーから値（緯度経度）を取得する
+        navigator.geolocation.getCurrentPosition(onGeoSuccess, onGeoError, geoOption);
+        
+#### *Stopボタン押下時の処理【加速度センサーの値を保存する】*
+#### (5) データストアに保存用クラスを作成
 
         var AcceData = ncmb.DataStore("AcceData");
 
-#### (4) -1 クラスのインスタンスを生成
+#### (6) クラスのインスタンスを生成
  
         var acceData = new AcceData();
 
-#### (6) -1 データの保存
+#### (7) データの保存
 
-        acceData.set("accelerometer", acce)  //[x, y, z]
+         acceData.set("accelerometer", acce)  
                 .save();
 
-#### *【ＧＰＳセンサーの値を保存する】*
-#### (3) -2データストアに保存用クラスを作成
+#### *Stopボタン押下時の処理【ＧＰＳセンサーの値を保存する】*
+#### (8) データストアに保存用クラスを作成
 
         var GpsData = ncmb.DataStore("GpsData");
 
-#### (4) -2 クラスのインスタンスを生成
+#### (9) クラスのインスタンスを生成
  
         var gpsData = new GpsData();
 
-#### (5) 位置情報オブジェクトを作成
+#### (10) 位置情報オブジェクトを作成
 
         var geoPoint = new ncmb.GeoPoint(); // (0,0)で生成
         geoPoint.latitude = lat;
         geoPoint.longitude = lng;
 
-#### (6) -2 データの保存
+#### (11)  データの保存
 
-        gpsData.set("geoPoint", geoPoint) //[lat, lng]
+        gpsData.set("geoPoint", geoPoint) 
                .save();
 ---------------------------------------
 #### *コールバックとオプション メソッド* ［実装済み］
@@ -133,7 +128,7 @@ mBaaSのコントロールパネルからアプリケーションキーとクラ
             frequency: 1000
         }; 
 
-#### ・位置情報取得に成功した場合のコールバック
+#### ・ＧＰＳセンサーから位置情報の取得に成功した場合のコールバック
         var onGeoSuccess = function(position){
             if(gps_flag){
                 current = new CurrentPoint();
@@ -148,12 +143,12 @@ mBaaSのコントロールパネルからアプリケーションキーとクラ
             }
         };
 
-#### ・位置情報取得に失敗した場合のコールバック
+#### ・ＧＰＳセンサーから位置情報の取得に失敗した場合のコールバック
         var onGeoError = function(error){
             console.log("現在位置を取得できませんでした");
         };
 
-#### ・位置情報取得時に設定するオプション
+#### ・ＧＰＳセンサーから位置情報をする時に設定するオプション
         var geoOption = {
             // 取得する間隔を１秒に設定
             frequency: 1000,
@@ -199,9 +194,14 @@ mBaaSのコントロールパネルからアプリケーションキーとクラ
 ---------------------------------------
 ### ・動作確認
 * Monacaデバッガーを使って動作確してください。
-* Startボタンを押すと加速度センサー、GPSセンサーから値を取得し画面に表示します。
-* Stopボタンを押すとセンサー値がmBaaSに保存されます。
-* mBaaSのダッシュボードより、｢データストア｣を選択すると、新たに｢Data｣クラスが作られています。｢Data｣クラスを選択すると保存されたデータを確認できます。
+* Startボタンを押すと
+ * 加速度センサー：x,y,z軸の値を取得し画面に表示します。また、画面に表示された色によって、加速度の変化が簡単に読み取れるようになっています。振ってみてください。
+ * ＧＰＳセンサー：緯度経度の値を取得し画面に表示します。またOpenStreetMapを使用して、地図に表示しています。
+* Stopボタンを押すと
+ * 加速度センサー：１秒ごとに取得した値（x,y,z軸の値の配列が秒ごとの配列として）がmBaaSに保存されます。
+ * ＧＰＳセンサー：値が位置情報（緯度経度の値のペア）としてmBaaSに保存されます。
+
+* mBaaSのダッシュボードより、｢データストア｣を選択すると、新たに｢AcceData｣,「GpsData」クラスが作られています。各クラスを選択すると保存されたデータを確認することができます。
 
 
 

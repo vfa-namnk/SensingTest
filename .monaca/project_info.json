@@ -8,7 +8,9 @@
     "plugin_settings": [],
     "external_plugins": [
         "cordova-plugin-whitelist@1.0.0",
-        "cordova-plugin-splashscreen@2.1.0"
+        "cordova-plugin-splashscreen@2.1.0",
+        "cordova-plugin-geolocation@1.0.1",
+        "cordova-plugin-device-motion@1.1.1"
     ],
     "title-ja": "",
     "title-en": "",
@@ -19,5 +21,5 @@
         "android",
         "ios"
     ],
-    "name": "generated-1453279762-56972beefd1734635977f30f"
+    "name": "generated-1453361116-569f53bc7e219392616373ff"
 }

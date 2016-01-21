@@ -1,4 +1,4 @@
-// (1) APIキー
+// (1) APIキーの設定
 /** アプリケーションキーをかmBaaSからコピーして書き換えてください **/
 var YOUR_APP_KEY = "YOUR_NCMB_APP_KEY";
 
@@ -12,25 +12,28 @@ var gps_flag;
 var current;
 
 $(function(){
-    //(2) mbaaSの初期化
+    //(2) mBaaSの初期化
     /*****↓ここに記入*****/
-
+    
     /*****↑ここに記入*****/
     
     acce_array = new Array();
     acce_flag = new Boolean(false);
     gps_flag = new Boolean(false);
+    current = null;
 
 });
 
+// 加速度センサーStartボタン押下時の処理
 function acce_start(){
     acce_flag = true; 
-    // [1] 加速度センサーから値（x, y, z 軸方向に動く値）を取得する
+    // (3) 加速度センサーから値（x, y, z 軸方向に動く値）を取得する
     /*****↓ここに記入*****/
-
+    
     /*****↑ここに記入*****/
 }
 
+// 加速度センサーStopボタン押下時の処理
 function acce_stop(){
     acce_flag = false;
     acce_save_ncmb(acce_array);
@@ -40,14 +43,16 @@ function acce_stop(){
     document.getElementById("color").src="js/img/white.png";
 }
 
+// ＧＰＳセンサーStartボタン押下時の処理
 function gps_start(){
     gps_flag = true;
-    // [2] GPSセンサーから値（緯度経度）を取得する
+    // (4) GPSセンサーから値（緯度経度）を取得する
     /*****↓ここに記入*****/
-
+    
     /*****↑ここに記入*****/
 }
 
+// ＧＰＳセンサーStopボタン押下時の処理
 function gps_stop(){
     gps_flag = false;
     gps_save_ncmb(current.geopoint.latitude,current.geopoint.longitude);
@@ -58,17 +63,17 @@ function gps_stop(){
 
 // 加速度の値を保存する
 function acce_save_ncmb(acce){
-        // (3)-1 データストアに保存用クラスを作成
+        // (5) データストアに保存用クラスを作成
         /*****↓ここに記入*****/
         
         /*****↑ここに記入*****/
         
-        // (4)-1 クラスのインスタンスを生成
+        // (6) クラスのインスタンスを生成
         /*****↓ここに記入*****/
-        
+        var acceData = new AcceData();
         /*****↑ここに記入*****/
         
-        // (6)-1 データの保存
+        // (7) データの保存
         /*****↓ここに記入*****/
         
         /*****↑ここに記入*****/
@@ -76,22 +81,22 @@ function acce_save_ncmb(acce){
 
 // GPSの値を保存する
 function gps_save_ncmb(lat, lng){
-        // (3)-2 データストアに保存用クラスを作成
+        // (8) データストアに保存用クラスを作成
         /*****↓ここに記入*****/
         
         /*****↑ここに記入*****/
         
-        // (4)-2 クラスのインスタンスを生成
+        // (9) クラスのインスタンスを生成
         /*****↓ここに記入*****/
         
         /*****↑ここに記入*****/
         
-        // (5) 位置情報オブジェクトを作成
+        // (10) 位置情報オブジェクトを作成
         /*****↓ここに記入*****/
         
         /*****↑ここに記入*****/
         
-        // (6)-2 データの保存
+        // (11) データの保存
         /*****↓ここに記入*****/
         
         /*****↑ここに記入*****/
@@ -122,13 +127,14 @@ function onAcceSuccess(acceleration) {
 function onAcceError() {
     console.log('onAcceError!');
 };
+
 // 加速度センサーから値をする時に設定するオプション
 var acceOptions = {
     // 取得する間隔を１秒に設定
     frequency: 1000
 }; 
 
-//位置情報取得に成功した場合のコールバック
+//ＧＰＳセンサーから位置情報の取得に成功した場合のコールバック
 var onGeoSuccess = function(position){
     if(gps_flag){
         current = new CurrentPoint();
@@ -143,12 +149,12 @@ var onGeoSuccess = function(position){
     }
 };
 
-// 位置情報取得に失敗した場合のコールバック
+// ＧＰセンサーから位置情報の取得に失敗した場合のコールバック
 var onGeoError = function(error){
     console.log("現在位置を取得できませんでした");
 };
 
-// 位置情報取得時に設定するオプション
+// ＧＰＳセンサーから位置情報をする時に設定するオプション
 var geoOption = {
     // 取得する間隔を１秒に設定
     frequency: 1000,
