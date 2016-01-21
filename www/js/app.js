@@ -70,7 +70,7 @@ function acce_save_ncmb(acce){
         
         // (6) クラスのインスタンスを生成
         /*****↓ここに記入*****/
-        var acceData = new AcceData();
+        
         /*****↑ここに記入*****/
         
         // (7) データの保存
