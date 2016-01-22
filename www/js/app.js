@@ -1,9 +1,9 @@
 // (1) APIキーの設定
 /** アプリケーションキーをかmBaaSからコピーして書き換えてください **/
-var YOUR_APP_KEY = "YOUR_NCMB_APP_KEY";
+var APPLICATION_KEY = "YOUR_NCMB_APPLICATION_KEY";
 
 /** クライアントキーをかmBaaSからコピーして書き換えてください **/
-var YOUR_CLIENT_KEY = "YOUR_NCMB_CLIENT_KEY";
+var CLIENT_KEY = "YOUR_NCMB_CLIENT_KEY";
 
 var ncmb;
 var acce_array;

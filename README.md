@@ -46,12 +46,12 @@
 #### (1) APIキーの設定
 mBaaSのコントロールパネルからアプリケーションキーとクライアントキーをコピーして貼り付けてください。
 
-        var YOUR_APP_KEY = "ここにあなたのアプリケーションキーを入力してください";
-        var YOUR_CLIENT_KEY = "ここにあなたのクライアントキーを入力してください";
+        var APPLICATION_KEY = "ここにあなたのアプリケーションキーを入力してください";
+        var CLIENT_KEY = "ここにあなたのクライアントキーを入力してください";
 
 #### (2) mBaaSの初期化
 
-        ncmb = new NCMB(YOUR_APP_KEY,YOUR_CLIENT_KEY);
+        ncmb = new NCMB(APPLICATION_KEY,CLIENT_KEY);
 
 #### *Startボタン押下時の処理*
 #### (3) 加速度センサーから値（x, y, z 軸）を取得する
