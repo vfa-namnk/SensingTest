@@ -116,7 +116,7 @@ mBaaSのコントロールパネルからアプリケーションキーとクラ
                 document.acce_js.y.value=acceleration.y;
                 document.acce_js.z.value=acceleration.z;
                 
-                //重力加速度を計算（前回のデータを利用して計算する為確実ではない
+                //重力加速度を計算
                 //基本的に重力加速度は端末の角度に対し「下」に働く
             	o_x = acceleration.x * 0.1 + o_x * (1.0 - 0.1);
             	o_y = acceleration.y * 0.1 + o_y * (1.0 - 0.1);
@@ -315,7 +315,7 @@ mBaaSのコントロールパネルからアプリケーションキーとクラ
                 document.acce_js.y.value=acceleration.y;
                 document.acce_js.z.value=acceleration.z;
                 
-                //重力加速度を計算（前回のデータを利用して計算する為確実ではない
+                //重力加速度を計算
                 //基本的に重力加速度は端末の角度に対し「下」に働く
             	o_x = acceleration.x * 0.1 + o_x * (1.0 - 0.1);
             	o_y = acceleration.y * 0.1 + o_y * (1.0 - 0.1);
