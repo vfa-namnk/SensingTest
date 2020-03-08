@@ -132,8 +132,18 @@ ncmb = new NCMB(APPLICATION_KEY,CLIENT_KEY);
 
 ![画像21](/readme-img/021.png)
 
-```
-var watchId = navigator.accelerometer.watchAcceleration(onAcceSuccess, onAcceError, acceOptions);
+```javascript
+    if (typeof DeviceMotionEvent.requestPermission === 'function') { // iOS 13+
+        DeviceMotionEvent.requestPermission()
+            .then(response => {
+                if (response == 'granted') {
+                    window.addEventListener('devicemotion', onAcceSuccess);
+                }
+            })
+            .catch(console.error);
+    } else { // non iOS 13+
+        window.addEventListener('devicemotion', onAcceSuccess);
+    }
 ```
 
 ### ＧＰＳセンサーStartボタン押下時の処理
