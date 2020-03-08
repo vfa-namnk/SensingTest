@@ -1,18 +1,7 @@
 {
-    "plugins": [
-        "mobi.monaca.plugins.Monaca@3.1.0",
-        "cordova-custom-config@2.0.3"
-    ],
     "framework_version": "3.5",
-    "xcode_version": "7",
-    "cordova_version": "6.2",
-    "plugin_settings": [],
-    "external_plugins": [
-        "cordova-plugin-whitelist@1.2.2",
-        "cordova-plugin-splashscreen@3.2.2",
-        "cordova-plugin-geolocation@2.2.0",
-        "cordova-plugin-device-motion@1.2.1"
-    ],
+    "xcode_version": "11.3",
+    "cordova_version": "9.0",
     "title-ja": "",
     "title-en": "",
     "description-ja": "",
@@ -22,5 +11,6 @@
         "android",
         "ios"
     ],
-    "name": "generated-1458286601-56ebaba8fd1734736687af71"
+    "name": "generated-1458286601-56ebaba8fd1734736687af71",
+    "cordova_ios_platform": "5.1.1"
 }
