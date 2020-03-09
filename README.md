@@ -122,8 +122,8 @@
 
 ![画像20](/readme-img/020.png)
 
-```
-ncmb = new NCMB(APPLICATION_KEY,CLIENT_KEY);
+```javascript
+    ncmb = new NCMB(APPLICATION_KEY,CLIENT_KEY);
 ```
 
 
@@ -151,8 +151,8 @@ ncmb = new NCMB(APPLICATION_KEY,CLIENT_KEY);
 
 ![画像22](/readme-img/022.png)
 
-```
-navigator.geolocation.getCurrentPosition(onGeoSuccess, onGeoError, geoOption);
+```javascript
+    navigator.geolocation.getCurrentPosition(onGeoSuccess, onGeoError, geoOption);
 ```
 
 ### Stopボタン押下時の処理 [実装済み]
@@ -167,8 +167,8 @@ navigator.geolocation.getCurrentPosition(onGeoSuccess, onGeoError, geoOption);
 
 ![画像24](/readme-img/024.png)
 
-```
-var AcceData = ncmb.DataStore("AcceData");
+```javascript
+    var AcceData = ncmb.DataStore("AcceData");
 ```
 
 #### (6) クラスのインスタンスを生成
@@ -176,8 +176,8 @@ var AcceData = ncmb.DataStore("AcceData");
 
 ![画像25](/readme-img/025.png)
 
-```
-var acceData = new AcceData();
+```javascript
+    var acceData = new AcceData();
 ```
 
 #### (7) データの保存
@@ -185,8 +185,8 @@ var acceData = new AcceData();
 
 ![画像26](/readme-img/026.png)
 
-```
-acceData.set("accelerometer", acce)  
+```javascript
+    acceData.set("accelerometer", acce)  
         .save();
 ```
 
@@ -196,12 +196,12 @@ acceData.set("accelerometer", acce)
 
 ![画像27](/readme-img/027.png)
 
-```
-var GpsData = ncmb.DataStore("GpsData");
+```javascript
+    var GpsData = ncmb.DataStore("GpsData");
 ```
 
-```
-var gpsData = new GpsData();
+```javascript
+    var gpsData = new GpsData();
 ```
 
 #### (10) 位置情報オブジェクトを作成
@@ -209,14 +209,14 @@ var gpsData = new GpsData();
 
 ![画像28](/readme-img/028.png)
 
-```
-var geoPoint = new ncmb.GeoPoint(); // (0,0)で生成
-geoPoint.latitude = lat;
-geoPoint.longitude = lng;
+```javascript
+    var geoPoint = new ncmb.GeoPoint(); // (0,0)で生成
+    geoPoint.latitude = lat;
+    geoPoint.longitude = lng;
 ```
 
-```
-gpsData.set("geoPoint", geoPoint) 
+```javascript
+    gpsData.set("geoPoint", geoPoint) 
        .save();
 ```
 
@@ -262,9 +262,10 @@ mBaaSのクラウド上に保存されました！
 
 ![画像34](/readme-img/034.png)
 
-```
-function onAcceSuccess(acceleration) {
-    if(acce_flag){
+```javascript
+function onAcceSuccess(event) {
+    var acceleration = event.acceleration;
+    if (acce_flag) {
 
         //直前の重力加速度のデータ
         var o_x = 0;
@@ -272,9 +273,9 @@ function onAcceSuccess(acceleration) {
         var o_z = 0;
 
         //各軸の加速度データ
-        document.acce_js.x.value=acceleration.x;
-        document.acce_js.y.value=acceleration.y;
-        document.acce_js.z.value=acceleration.z;
+        document.acce_js.x.value = acceleration.x;
+        document.acce_js.y.value = acceleration.y;
+        document.acce_js.z.value = acceleration.z;
 
         //重力加速度を計算
         //基本的に重力加速度は端末の角度に対し「下」に働く
@@ -288,39 +289,18 @@ function onAcceSuccess(acceleration) {
         var last_z = acceleration.z - o_z;
 
         // センサーの値の変化を色で表示する
-        if(Math.abs(last_x)>20 || Math.abs(last_y)>20 || Math.abs(last_z)>20){
-            document.getElementById("color").src="js/img/red.png";//赤
-        }else if(Math.abs(last_x)>13 || Math.abs(last_y)>13 || Math.abs(last_z)>13){
-            document.getElementById("color").src="js/img/yellow.png";//黄
-        }else{
-            document.getElementById("color").src="js/img/blue.png";//青
+        if (Math.abs(last_x) > 20 || Math.abs(last_y) > 20 || Math.abs(last_z) > 20) {
+            document.getElementById("color").src = "js/img/red.png";//赤
+        } else if (Math.abs(last_x) > 13 || Math.abs(last_y) > 13 || Math.abs(last_z) > 13) {
+            document.getElementById("color").src = "js/img/yellow.png";//黄
+        } else {
+            document.getElementById("color").src = "js/img/blue.png";//青
         }
 
-        var acce = [acceleration.x,acceleration.y,acceleration.z];
+        var acce = [acceleration.x, acceleration.y, acceleration.z];
         acce_array.push(acce);
     }
 };
-```
-
-* 失敗した場合のコールバック
-
-![画像35](/readme-img/035.png)
-
-```
-function onAcceError() {
-    console.log('onAcceError!');
-};
-```
-
-* 設定するオプション
-
-![画像36](/readme-img/036.png)
-
-```
-var acceOptions = {
-    // 取得する間隔を0.5秒に設定
-    frequency: 500
-}; 
 ```
 
 ### ＧＰＳセンサーから値の取得時 [実装済み]
@@ -329,18 +309,18 @@ var acceOptions = {
 
 ![画像37](/readme-img/037.png)
 
-```
-var onGeoSuccess = function(position){
-    if(gps_flag){
+```javascript
+var onGeoSuccess = function (position) {
+    if (gps_flag) {
         current = new CurrentPoint();
         //検索範囲の半径を保持する
         current.distance = CurrentPoint.distance;
         //位置情報(座標)を保存する
         current.geopoint = position.coords;
         $(".map").empty();
-        writemap(current.geopoint.latitude,current.geopoint.longitude);
-        document.gps_js.lat.value=current.geopoint.latitude;
-        document.gps_js.lng.value=current.geopoint.longitude;
+        writemap(current.geopoint.latitude, current.geopoint.longitude);
+        document.gps_js.lat.value = current.geopoint.latitude;
+        document.gps_js.lng.value = current.geopoint.longitude;
     }
 };
 ```
@@ -349,8 +329,8 @@ var onGeoSuccess = function(position){
 
 ![画像38](/readme-img/038.png)
 
-```
-var onGeoError = function(error){
+```javascript
+var onGeoError = function (error) {
     console.log("現在位置を取得できませんでした");
 };
 ```
@@ -359,7 +339,7 @@ var onGeoError = function(error){
 
 ![画像39](/readme-img/039.png)
 
-```
+```javascript
 var geoOption = {
     // 取得する間隔を１秒に設定
     frequency: 1000,
@@ -370,12 +350,12 @@ var geoOption = {
 
 ### 位置情報を保持するクラスを作成
 
-```
-function CurrentPoint(){
+```javascript
+function CurrentPoint() {
     // 端末の位置情報を保持する
-    geopoint=null;
+    geopoint = null;
     // 位置情報検索に利用するための検索距離を指定する
-    distance=0;
+    distance = 0;
 }
 ```
 
@@ -383,18 +363,18 @@ function CurrentPoint(){
 
 ![画像40](/readme-img/040.png)
 
-```
-function writemap(lat,lon) {
+```javascript
+function writemap(lat, lon) {
     // 現在地の地図を表示
     map = new OpenLayers.Map("canvas");
     var mapnik = new OpenLayers.Layer.OSM();
     map.addLayer(mapnik);
-    console.log(lat+":"+lon);
+    console.log(lat + ":" + lon);
     var lonLat = new OpenLayers.LonLat(lon, lat)
-                               .transform(
-                                   new OpenLayers.Projection("EPSG:4326"), 
-                                   new OpenLayers.Projection("EPSG:900913")
-                               );
+        .transform(
+            new OpenLayers.Projection("EPSG:4326"),
+            new OpenLayers.Projection("EPSG:900913")
+        );
     map.setCenter(lonLat, 15);
 
     // 現在地にマーカーを立てる
@@ -403,10 +383,10 @@ function writemap(lat,lon) {
 
     var marker = new OpenLayers.Marker(
         new OpenLayers.LonLat(lon, lat)
-                      .transform(
-                          new OpenLayers.Projection("EPSG:4326"), 
-                          new OpenLayers.Projection("EPSG:900913")
-        )
+            .transform(
+                new OpenLayers.Projection("EPSG:4326"),
+                new OpenLayers.Projection("EPSG:900913")
+            )
     );
     markers.addMarker(marker);
 }
@@ -426,7 +406,7 @@ function writemap(lat,lon) {
 ### *js/app.jsの完成版*
 上手く動かなかった場合、以下をコピーして js/app.jsに貼り付けてください。その際、APIキーを書き換えてください。
 
-```
+```javascript
 /** アプリケーションキーをかmBaaSからコピーして書き換えてください **/
 var APPLICATION_KEY = "YOUR_NCMB_APPLICATION_KEY";
 /** クライアントキーをかmBaaSからコピーして書き換えてください **/
@@ -439,8 +419,8 @@ var gps_flag;
 var current;
 
 // 起動時に実行
-$(function(){
-    ncmb = new NCMB(APPLICATION_KEY,CLIENT_KEY);
+$(function () {
+    ncmb = new NCMB(APPLICATION_KEY, CLIENT_KEY);
     acce_array = new Array();
     acce_flag = new Boolean(false);
     gps_flag = new Boolean(false);
@@ -448,58 +428,70 @@ $(function(){
 });
 
 // 加速度センサーStartボタン押下時の処理
-function acce_start(){
-    acce_flag = true; 
-    var watchId = navigator.accelerometer.watchAcceleration(onAcceSuccess, onAcceError, acceOptions);
+function acce_start() {
+    acce_flag = true;
+    if (typeof DeviceMotionEvent.requestPermission === 'function') { // iOS 13+
+        DeviceMotionEvent.requestPermission()
+            .then(response => {
+                if (response == 'granted') {
+                    window.addEventListener('devicemotion', onAcceSuccess);
+                }
+            })
+            .catch(console.error);
+    } else { // non iOS 13+
+        window.addEventListener('devicemotion', onAcceSuccess);
+    }
 }
 
 // 加速度センサーStopボタン押下時の処理
-function acce_stop(){
+function acce_stop() {
     acce_flag = false;
+    window.removeEventListener("devicemotion", onAcceSuccess);
     acce_save_ncmb(acce_array);
-    document.acce_js.x.value=null;
-    document.acce_js.y.value=null;
-    document.acce_js.z.value=null;
-    document.getElementById("color").src="js/img/white.png";
+    document.acce_js.x.value = null;
+    document.acce_js.y.value = null;
+    document.acce_js.z.value = null;
+    document.getElementById("color").src = "js/img/white.png";
 }
 
 // ＧＰＳセンサーStartボタン押下時の処理
-function gps_start(){
+function gps_start() {
     gps_flag = true;
     navigator.geolocation.getCurrentPosition(onGeoSuccess, onGeoError, geoOption);
 }
 
 // ＧＰＳセンサーStopボタン押下時の処理
-function gps_stop(){
+function gps_stop() {
     gps_flag = false;
-    gps_save_ncmb(current.geopoint.latitude,current.geopoint.longitude);
-    document.gps_js.lat.value=null;
-    document.gps_js.lng.value=null;
+    gps_save_ncmb(current.geopoint.latitude, current.geopoint.longitude);
+    document.gps_js.lat.value = null;
+    document.gps_js.lng.value = null;
     $(".map").empty();
 }
 
 // 加速度の値を保存する
-function acce_save_ncmb(acce){
+function acce_save_ncmb(acce) {
     var AcceData = ncmb.DataStore("AcceData");
     var acceData = new AcceData();
-    acceData.set("accelerometer", acce)  
-            .save();        
+    acceData.set("accelerometer", acce)
+        .save();
 }
 
 // GPSの値を保存する
-function gps_save_ncmb(lat, lng){
+function gps_save_ncmb(lat, lng) {
     var GpsData = ncmb.DataStore("GpsData");
     var gpsData = new GpsData();
     var geoPoint = new ncmb.GeoPoint(); // (0,0)で生成
     geoPoint.latitude = lat;
     geoPoint.longitude = lng;
-    gpsData.set("geoPoint", geoPoint) 
-           .save();
+    gpsData.set("geoPoint", geoPoint)
+        .save();
 }
 
 // 加速度センサーから値の取得に成功した場合のコールバック
-function onAcceSuccess(acceleration) {
-    if(acce_flag){
+function onAcceSuccess(event) {
+    var acceleration = event.acceleration;
+    if (acce_flag) {
 
         //直前の重力加速度のデータ
         var o_x = 0;
@@ -507,9 +499,9 @@ function onAcceSuccess(acceleration) {
         var o_z = 0;
 
         //各軸の加速度データ
-        document.acce_js.x.value=acceleration.x;
-        document.acce_js.y.value=acceleration.y;
-        document.acce_js.z.value=acceleration.z;
+        document.acce_js.x.value = acceleration.x;
+        document.acce_js.y.value = acceleration.y;
+        document.acce_js.z.value = acceleration.z;
 
         //重力加速度を計算
         //基本的に重力加速度は端末の角度に対し「下」に働く
@@ -523,47 +515,36 @@ function onAcceSuccess(acceleration) {
         var last_z = acceleration.z - o_z;
 
         // センサーの値の変化を色で表示する
-        if(Math.abs(last_x)>20 || Math.abs(last_y)>20 || Math.abs(last_z)>20){
-            document.getElementById("color").src="js/img/red.png";//赤
-        }else if(Math.abs(last_x)>13 || Math.abs(last_y)>13 || Math.abs(last_z)>13){
-            document.getElementById("color").src="js/img/yellow.png";//黄
-        }else{
-            document.getElementById("color").src="js/img/blue.png";//青
+        if (Math.abs(last_x) > 20 || Math.abs(last_y) > 20 || Math.abs(last_z) > 20) {
+            document.getElementById("color").src = "js/img/red.png";//赤
+        } else if (Math.abs(last_x) > 13 || Math.abs(last_y) > 13 || Math.abs(last_z) > 13) {
+            document.getElementById("color").src = "js/img/yellow.png";//黄
+        } else {
+            document.getElementById("color").src = "js/img/blue.png";//青
         }
 
-        var acce = [acceleration.x,acceleration.y,acceleration.z];
+        var acce = [acceleration.x, acceleration.y, acceleration.z];
         acce_array.push(acce);
     }
 };
 
-// 加速度センサーから値の取得に失敗した場合のコールバック
-function onAcceError() {
-    console.log('onAcceError!');
-};
-
-// 加速度センサーから値をする時に設定するオプション
-var acceOptions = {
-    // 取得する間隔を0.5秒に設定
-    frequency: 500
-}; 
-
-//ＧＰＳセンサーから位置情報の取得に成功した場合のコールバック
-var onGeoSuccess = function(position){
-    if(gps_flag){
+// ＧＰＳセンサーから位置情報の取得に成功した場合のコールバック
+var onGeoSuccess = function (position) {
+    if (gps_flag) {
         current = new CurrentPoint();
         //検索範囲の半径を保持する
         current.distance = CurrentPoint.distance;
         //位置情報(座標)を保存する
         current.geopoint = position.coords;
         $(".map").empty();
-        writemap(current.geopoint.latitude,current.geopoint.longitude);
-        document.gps_js.lat.value=current.geopoint.latitude;
-        document.gps_js.lng.value=current.geopoint.longitude;
+        writemap(current.geopoint.latitude, current.geopoint.longitude);
+        document.gps_js.lat.value = current.geopoint.latitude;
+        document.gps_js.lng.value = current.geopoint.longitude;
     }
 };
 
 // ＧＰセンサーから位置情報の取得に失敗した場合のコールバック
-var onGeoError = function(error){
+var onGeoError = function (error) {
     console.log("現在位置を取得できませんでした");
 };
 
@@ -576,25 +557,25 @@ var geoOption = {
 };
 
 // 位置情報を保持するクラスを作成
-function CurrentPoint(){
+function CurrentPoint() {
     // 端末の位置情報を保持する
-    geopoint=null;
+    geopoint = null;
     // 位置情報検索に利用するための検索距離を指定する
-    distance=0;
+    distance = 0;
 }
 
 // 位置情報を地図(OpenStreetMap)に表示する
-function writemap(lat,lon) {
+function writemap(lat, lon) {
     // 現在地の地図を表示
     map = new OpenLayers.Map("canvas");
     var mapnik = new OpenLayers.Layer.OSM();
     map.addLayer(mapnik);
-    console.log(lat+":"+lon);
+    console.log(lat + ":" + lon);
     var lonLat = new OpenLayers.LonLat(lon, lat)
-                               .transform(
-                                    new OpenLayers.Projection("EPSG:4326"), 
-                                    new OpenLayers.Projection("EPSG:900913")
-                                );
+        .transform(
+            new OpenLayers.Projection("EPSG:4326"),
+            new OpenLayers.Projection("EPSG:900913")
+        );
     map.setCenter(lonLat, 15);
 
     // 現在地にマーカーを立てる
@@ -603,10 +584,10 @@ function writemap(lat,lon) {
 
     var marker = new OpenLayers.Marker(
         new OpenLayers.LonLat(lon, lat)
-                      .transform(
-                          new OpenLayers.Projection("EPSG:4326"), 
-                          new OpenLayers.Projection("EPSG:900913")
-        )
+            .transform(
+                new OpenLayers.Projection("EPSG:4326"),
+                new OpenLayers.Projection("EPSG:900913")
+            )
     );
     markers.addMarker(marker);
 }
