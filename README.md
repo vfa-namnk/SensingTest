@@ -67,11 +67,11 @@
 
 * ダッシュボードの左側に作成したプロジェクトが追加されています
 
-![画像11](/readme-img/011.png)
+<img src="readme-img/011.png" width="750" alt="画像11" />
 
 * プロジェクトの開発環境が開きます
 
-![画像12](/readme-img/012.png)
+<img src="readme-img/012.png" width="750" alt="画像12" />
 
 ### 3. ツールの準備
 #### Cordvaプラグインの有効化 [設定済み]
