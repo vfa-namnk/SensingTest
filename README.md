@@ -45,23 +45,25 @@
 
 * [Monaca](https://ja.monaca.io/)にログインします
 
-![画像6](/readme-img/006.png)
+<img src="readme-img/monaca.JPG" width="550" alt="新規プロジェクト" />
 
 * [Monacaデバッガー](https://ja.monaca.io/debugger.html)をインストールします
 <br>※今回作成するアプリは動作確認にMonacaデバッガーが必須です！
 
-![画像7](/readme-img/007.png)
+<img src="readme-img/007.png" width="550" alt="画像007" />
 
-* Monacaの新しいプロジェクトを作る
+* Monacaでインポートを選択し、新規プロジェクトを作成します。
 
-![画像8](/readme-img/008.png)
-![画像9](/readme-img/009.png)
-
+<img src="readme-img/monaca_new_project.JPG" width="550" alt="新規プロジェクト" />
 
 * 「インポート方法」の「URLを指定してインポート」をチェックし、下記リンクを右クリックでコピーし、貼り付けます
 * プロジェクト：[SensingTest](https://github.com/natsumo/SensingTest/archive/master.zip)
 
-![画像10](/readme-img/010.png)
+<img src="readme-img/monaca_new_project_2.JPG" width="550" alt="新規プロジェクト" />
+
+* 「プロジェクト名」を入力します　例）「SensingTest」
+
+<img src="readme-img/010.png" width="550" alt="リンク指定" />
 
 * ダッシュボードの左側に作成したプロジェクトが追加されています
 
